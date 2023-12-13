@@ -5,3 +5,4 @@ itsdangerous
 Jinja2
 peewee
 Werkzeug
+Neo4j

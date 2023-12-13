@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+    <body>
+    <h1>Person Information</h1>
+
+    <h2>Details:</h2>
+    <ul>
+        <li>Name: {{ data['person']['first_name'] }} {{ data['person']['last_name'] }}</li>
+        <li>Gender: {{ data['person']['gender'] }}</li>
+        <li>Date of birth: {{ data['person']['birth'] }}</li>
+        <li>Date of death: {{ data['person']['death'] }}</li>
+    </ul>
+
+    <h2>Related People:</h2>
+    <ul>
+        {% if 'children' in data %}
+            <li>
+                Children:
+                <ul>
+                    {% for child in data['children'] %}
+                        <li><a href="/person/{{ child['id'] }}">{{ child['first_name'] }} {{ child['last_name'] }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endif %}
+    
+        {% if 'spouse' in data %}
+            <li>
+                Spouse:
+                <a href="/person/{{ data['spouse']['id'] }}">{{ data['spouse']['first_name'] }} {{ data['spouse']['last_name'] }}</a>
+            </li>
+        {% endif %}
+    
+        {% if 'parents' in data %}
+            <li>
+                Parents:
+                <ul>
+                    {% for parent in data['parents'] %}
+                        <li>
+                            <a href="/person/{{ parent['id'] }}">{{ parent['first_name'] }} {{ parent['last_name'] }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endif %}
+    </ul>  
+    </body>
+    </html>
+{% endblock %}
