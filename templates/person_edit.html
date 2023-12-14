@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Edit Person</h1>
+    <form method="post">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" value="{{ person.first_name }}" required><br><br>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" value="{{ person.last_name }}" required><br><br>
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="Male" {% if person.gender == 'Male' %} selected {% endif %}>Male</option>
+            <option value="Female" {% if person.gender == 'Female' %} selected {% endif %}>Female</option>
+        </select><br><br>
+        <label for="birth">Date of Birth:</label>
+        <input type="date" id="birth" name="birth" value="{{ person.birth }}" required><br><br>
+        <label for="death">Date of Death:</label>
+        <input type="date" id="death" name="death" value="{{ person.death }}"><br><br>
+        <input type="submit">
+    </form>
+{% endblock %}

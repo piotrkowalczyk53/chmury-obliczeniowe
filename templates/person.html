@@ -11,6 +11,32 @@
         <li>Date of death: {{ data['person']['death'] }}</li>
     </ul>
 
+    <div>
+        <form action="/person/{{ data['person'].id }}/edit" method="get">
+            <button type="submit">Edit</button>
+        </form>
+    
+        <form action="/person/{{ data['person'].id }}/delete" method="get" onsubmit="return confirm('Are you sure you want to delete this person?')">
+            <input type="submit" value="Delete">
+        </form>
+    </div>
+    
+    <br><br>
+    <form action="/person/{{ data['person'].id }}/add_child" method="get">
+        <input type="hidden" name="parent_gender" value="{{ data['person']['gender'] }}">
+        <button type="submit">Add Child</button>
+    </form>
+
+    <form action="/person/{{ data['person'].id }}/add_parent" method="get">
+        <input type="hidden" name="child_gender" value="{{ data['person']['gender'] }}">
+        <button type="submit">Add Parent</button>
+    </form>
+
+    <form action="/person/{{ data['person'].id }}/add_spouse" method="get">
+        <input type="hidden" name="child_gender" value=" ">
+        <button type="submit">Add Spouse</button>
+    </form>
+    
     <h2>Related People:</h2>
     <ul>
         {% if 'children' in data %}
@@ -18,18 +44,33 @@
                 Children:
                 <ul>
                     {% for child in data['children'] %}
-                        <li><a href="/person/{{ child['id'] }}">{{ child['first_name'] }} {{ child['last_name'] }}</a></li>
+                        <li>
+                            <a href="/person/{{ child.id }}">{{ child['first_name'] }} {{ child['last_name'] }}</a>
+                            <form action="/delete_relation/{{ data['person'].id  }}/{{ child.id }}" method="post" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this relation?')">
+                                <button type="submit">Delete Relation</button>
+                            </form>
+                        </li>
                     {% endfor %}
                 </ul>
             </li>
         {% endif %}
     
-        {% if 'spouse' in data %}
+        {% if 'spouses' in data %}
             <li>
-                Spouse:
-                <a href="/person/{{ data['spouse']['id'] }}">{{ data['spouse']['first_name'] }} {{ data['spouse']['last_name'] }}</a>
+                Spouses:
+                <ul>
+                    {% for spouse in data['spouses'] %}
+                        <li>
+                            <a href="/person/{{ spouse.id }}">{{ spouse['first_name'] }} {{ spouse['last_name'] }}</a>
+                            <form action="/delete_relation/{{ data['person'].id  }}/{{ spouse.id }}" method="post" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this relation?')">
+                                <button type="submit">Delete Relation</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
             </li>
         {% endif %}
+
     
         {% if 'parents' in data %}
             <li>
@@ -37,7 +78,10 @@
                 <ul>
                     {% for parent in data['parents'] %}
                         <li>
-                            <a href="/person/{{ parent['id'] }}">{{ parent['first_name'] }} {{ parent['last_name'] }}</a>
+                            <a href="/person/{{ parent.id }}">{{ parent['first_name'] }} {{ parent['last_name'] }}</a>
+                            <form action="/delete_relation/{{ data['person'].id  }}/{{ parent.id }}" method="post" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this relation?')">
+                                <button type="submit">Delete Relation</button>
+                            </form>
                         </li>
                     {% endfor %}
                 </ul>

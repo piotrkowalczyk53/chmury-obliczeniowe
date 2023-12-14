@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+    <html>
+    <head>
+    <title>Persons List</title>
+    </head>
+    <body>
+    <h1>Persons List</h1>
+
+    <ul>
+        {% for person in people %}
+        <li><a href="/person/{{ person['id'] }}">{{ person['first_name'] }} {{ person['last_name'] }}</a></li>
+        {% endfor %}
+    </ul>
+
+    </body>
+    </html>
+{% endblock %}

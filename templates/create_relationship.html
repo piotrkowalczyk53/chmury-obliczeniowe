@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<body>
+    <h1>Create Relationship</h1>
+
+    <h2>Person 1</h2>
+    <p>{{ person1.last_name }} {{ person1.first_name }}</p>
+
+    <h2>Person 2</h2>
+    <p>{{ person2.last_name }} {{ person2.first_name }}</p>
+
+    <h2>Create Relationship</h2>
+    <form method="POST">
+        <label for="relationship">Select Relationship:</label>
+        <select id="relationship" name="relationship">
+            <option value="FATHER">Father</option>
+            <option value="MOTHER">Mother</option>
+            <option value="DAUGHTER">Daughter</option>
+            <option value="SON">Son</option>
+            <option value="MARRIAGE">Marriage</option>
+        </select>
+        
+        <input type="hidden" name="node2_gender" value="{{ person2.gender }}">
+
+        <button type="submit">Create Relationship</button>
+    </form>
+</body>
+</html>
+{% endblock %}
