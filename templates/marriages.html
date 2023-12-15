@@ -9,15 +9,16 @@
         {% if marriages %}
             {% for marriage in marriages %}
             <li>
-                <a href="/person/{{ marriage[0].id }}">{{ marriage[0].last_name }} {{ marriage[0].first_name }}</a>
-                {% if marriage.divorce_date %}
-                was married to
+                <a href="/person/{{ marriage[0]['id'] }}">{{ marriage[0]['last_name'] }} {{ marriage[0]['first_name'] }}</a>
+                {% if 'divorce_date' in marriage[2] %}
+                    was married to
                 {% else %}
-                is married to
+                    is married to
                 {% endif %}
-                <a href="/person/{{ marriage[1].id }}">{{ marriage[1].last_name }} {{ marriage[1].first_name }}</a>
+                <a href="/person/{{ marriage[1]['id'] }}">{{ marriage[1]['last_name'] }} {{ marriage[1]['first_name'] }}</a>
             </li>
-            {% endfor %}
+        {% endfor %}
+    
         {% else %}
             <li>No marriages found.</li>
         {% endif %}

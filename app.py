@@ -142,4 +142,4 @@ def create_relationship(node1, node2):
     person2 = family_tree.get_person(node2)
     return render_template('create_relationship.html', person1=person1, person2=person2)
 
-if __name__ == '__main__': app.run(debug=True)
+if __name__ == '__main__': app.run()

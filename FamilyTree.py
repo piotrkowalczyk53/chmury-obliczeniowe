@@ -143,11 +143,11 @@ class FamilyTree:
     def get_all_marriages(self):
         with self._driver.session() as session:
             result = session.run("""
-                MATCH (h:Person {gender: "Male"})-[marriage:MARRIAGE]->(w:Person)
+                MATCH (h:Person {gender: 'Male'})-[marriage:MARRIAGE]->(w:Person)
                 RETURN COLLECT(DISTINCT [h, w, marriage]) AS marriages
-            """)
+                """)
             
-            marriages = [record['marriages'][0] for record in result if record['marriages']]
+            marriages = [marriage for record in result for marriage in record['marriages']]
             return marriages if marriages else []
         
     def add_person(self, first_name, last_name, gender, birth, death):
